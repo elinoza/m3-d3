@@ -649,7 +649,7 @@
 
 
         const load2ndImages= function(){
-            fetch("http://www.splashbase.co/api/v1/images/latest", {
+            fetch("http://www.splashbase.co/api/v1/images/random", {
         method: "GET",
        
       })
@@ -657,7 +657,7 @@
         .then((body) => {
           console.log("parsed body",body) ;
          
-          for (let i=0; i=card.length;i++){          
+          for (let i=0; i<card.length;i++){          
           card[i].innerHTML=`<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">`;
           
                 } 
