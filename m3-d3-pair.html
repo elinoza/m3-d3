@@ -680,12 +680,12 @@
 
         loadBtn.addEventListener("click", loadImages);
         
-     let searchBtn=document.querySelector('#searchInput').value
+   
 
 
         const load2ndImages= function(){
-                        if(searchBtn=== ""){  
-                            fetch("http://www.splashbase.co/api/v1/images/search?query=dog", {
+                        if( document.querySelector('#searchInput').value === ""){  
+                            fetch(`http://www.splashbase.co/api/v1/images/search?query=car`, {
                             method: "GET",
                         
                                  })
@@ -735,7 +735,7 @@
                         }
                     
                         else{
-                            fetch("http://www.splashbase.co/api/v1/images/search?query= ${searchBtn}, {
+                            fetch(`http://www.splashbase.co/api/v1/images/search?query=${document.querySelector('#searchInput').value}`,{
                             method: "GET",
                         
                                  })
@@ -745,7 +745,8 @@
                             
                                 for (let i=0; i<card.length;i++){       
                                 
-                                        card[i].innerHTML=`<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">
+                                        card[i].innerHTML=
+                                        `<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">
                                         
                                         <div class="card-body">
                                         <p class="card-text">
