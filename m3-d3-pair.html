@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -173,11 +174,16 @@
             This page will dynamically load pictures from the web, and display
             them in a cool way!
           </p>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control " id="searchInput" type="search" placeholder="Search" aria-label="Search">
+           
+          </form>
           <p>
             <a href="#" class="btn btn-primary my-2" id="load1">Load Images</a>
             <a href="#" class="btn btn-secondary my-2" id="load2">Load Secondary Images</a>
           </p>
         </div>
+        
       </section>
 
       <div class="album py-5 bg-light">
@@ -645,6 +651,7 @@
                       <button
                         type="button"
                         class="btn btn-sm btn-outline-secondary"
+                        id="viewBtn"
                       >
                         View
                       </button>
@@ -673,86 +680,120 @@
 
         loadBtn.addEventListener("click", loadImages);
         
+     let searchBtn=document.querySelector('#searchInput').value
 
 
         const load2ndImages= function(){
-            fetch("http://www.splashbase.co/api/v1/images/random", {
-        method: "GET",
-       
-      })
-        .then((response) => {return response.json()})
-        .then((body) => {
-          console.log("parsed body",body) ;
-         
-          for (let i=0; i<card.length;i++){          
-          card[i].innerHTML=`<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">
-                
-                <div class="card-body">
-                  <p class="card-text">
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                  </p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                      >
-                        View
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                      >
-                        Edit
-                      </button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>`;
-          
-                } 
-        })
-        .catch((err) => {
-          console.error("something is wrong",err);
+                        if(searchBtn=== ""){  
+                            fetch("http://www.splashbase.co/api/v1/images/search?query=dog", {
+                            method: "GET",
+                        
+                                 })
+                            .then((response) => {return response.json()})
+                            .then((body) => {
+                                console.log("parsed body",body) ;
+                            
+                                for (let i=0; i<card.length;i++){       
+                                
+                                        card[i].innerHTML=`<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">
+                                        
+                                        <div class="card-body">
+                                        <p class="card-text">
+                                            This is a wider card with supporting text below as a natural
+                                            lead-in to additional content. This content is a little bit
+                                            longer.
+                                        </p>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center"
+                                        >
+                                            <div class="btn-group">
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-outline-secondary"
+                                                id="viewBtn"
+                                            >
+                                                View
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                Edit
+                                            </button>
+                                            </div>
+                                            <small class="text-muted">9 mins</small>
+                                        </div>
+                                        </div>
+                                     </div>`
+                            
+                                } 
+                            })
+                            .catch((err) => {
+                            console.error("something is wrong",err);
 
-        });
-        }
+                            });
+                        }
+                    
+                        else{
+                            fetch("http://www.splashbase.co/api/v1/images/search?query= ${searchBtn}, {
+                            method: "GET",
+                        
+                                 })
+                            .then((response) => {return response.json()})
+                            .then((body) => {
+                                console.log("parsed body",body) ;
+                            
+                                for (let i=0; i<card.length;i++){       
+                                
+                                        card[i].innerHTML=`<img src="${body.images[i].url}"   class="img-fluid card-img-top bd-placeholder-img">
+                                        
+                                        <div class="card-body">
+                                        <p class="card-text">
+                                            This is a wider card with supporting text below as a natural
+                                            lead-in to additional content. This content is a little bit
+                                            longer.
+                                        </p>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center"
+                                        >
+                                            <div class="btn-group">
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-outline-secondary"
+                                                id="viewBtn"
+                                            >
+                                                View
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                Edit
+                                            </button>
+                                            </div>
+                                            <small class="text-muted">9 mins</small>
+                                        </div>
+                                        </div>
+                                     </div>`
+                            
+                                } 
+                            })
+                            .catch((err) => {
+                            console.error("something is wrong",err);
+
+                            });
+                           
+
+                        }
+            }
+             
 
         load2nd.addEventListener("click", load2ndImages);
 
-        let view=document.querySelector('#viewBtn')
+        
 
-        view.addEventListener("click", viewPhoto)
 
-        const viewPhoto= function(){
-            let newDiv= document.querySelector('div')
-            parent.appendChild(newDiv)
 
-        `<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>`
-}
 
 
 
